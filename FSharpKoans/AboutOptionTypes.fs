@@ -17,22 +17,23 @@ type Game = {
 //---------------------------------------------------------------
 [<Koan(Sort = 17)>]
 module ``about option types`` =
+    open System
 
     [<Koan>]
     let OptionTypesMightContainAValue() =
         let someValue = Some 10
         
-        AssertEquality someValue.IsSome __
-        AssertEquality someValue.IsNone __
-        AssertEquality someValue.Value __
+        AssertEquality someValue.IsSome true
+        AssertEquality someValue.IsNone false
+        AssertEquality someValue.Value 10
 
     [<Koan>]
     let OrTheyMightNot() =
         let noValue = None
 
-        AssertEquality noValue.IsSome __
-        AssertEquality noValue.IsNone __
-        AssertThrows<FILL_IN_THE_EXCEPTION> (fun () -> noValue.Value)
+        AssertEquality noValue.IsSome false
+        AssertEquality noValue.IsNone true
+        AssertThrows<NullReferenceException> (fun () -> noValue.Value)
 
     [<Koan>]
     let UsingOptionTypesWithPatternMatching() =
