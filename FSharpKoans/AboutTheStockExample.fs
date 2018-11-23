@@ -60,6 +60,24 @@ module ``about the stock example`` =
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
+        let splitCommas (x:string) =
+            x.Split([|','|])
+
+        let ParseStockData (x: string []) =
+            (abs(System.Double.Parse(x.[1])-System.Double.Parse(x.[4])), x.[0])
+
+        let CalcGreatestVariance (x:string list) =
+            let splittedStockData = List.map splitCommas x
+            let parsedStockData = List.map ParseStockData splittedStockData .Tail
+            let maxStockData = List.max parsedStockData 
+            
+            snd maxStockData
+
+        //let CalcGreatestVariance (x:string list) =
+        //  let l = x |> List.map splitCommas |> List.map ParseStockData
+        //  snd (List.max l.Tail)
+
+        let result = CalcGreatestVariance stockData
         
         AssertEquality "2012-03-13" result
+            
